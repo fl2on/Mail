@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail me</title>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✉️</text></svg>">
+</head>
+
+<body>
+  <header>
+    <h1>Mail me</h1>
+  </header>
+
+  <main>
+    <section id="verification-section">
+      <p id="verificationText">Please answer the following question to verify that you're not a robot:</p>
+      <p id="question"></p>
+      <form id="form" action="#" method="POST">
+        <div class="form-row">
+          <input type="text" id="answer" placeholder="Your answer" required>
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+    </section>
+
+    <section id="email-section" style="display: none;">
+      <p>
+        <a id="mail-to">
+          <span id="email-address"></span>
+        </a>
+      </p>
+      <div class="form-row">
+        <button id="copy-to-clipboard" onclick="copyToClipboard()">Copy</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Qzxtu. All rights reserved.</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

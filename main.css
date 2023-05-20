@@ -1,0 +1,113 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: rgb(214, 214, 214);
+  background-color: #121212;
+}
+
+h1 {
+  text-align: center;
+}
+
+header {
+  padding: 1em;
+  background-color: #474786;
+}
+
+main {
+  margin: 2em auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+#verification-section {
+  display: block;
+  margin-bottom: 2em;
+}
+
+#email-section {
+  display: none;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+input {
+  color: white;
+  box-sizing: border-box;
+  height: 40px;
+  width: 200px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #474786;
+  box-shadow: 0 1px 3px 0 #1e1e3a;
+  transition: box-shadow 150ms ease;
+  outline: none;
+}
+
+input:hover {
+  box-shadow: 0 2px 4px 0 rgb(75, 75, 75);
+}
+
+input:focus {
+  box-shadow: 0 0 0 2px #8e8ee6;
+}
+
+button {
+  color: white;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #474786;
+  box-shadow: 0 1px 3px 0 #1e1e3a;
+  transition: box-shadow 150ms ease;
+  text-align: center;
+}
+
+button:hover {
+  box-shadow: 0 2px 4px 0 rgb(75, 75, 75);
+}
+
+footer {
+  padding: 1em;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  padding: 15px;
+  background-color: rgba(12, 49, 23, 0.7);
+  color: #fff;
+  transform: translate(-50%, 0);
+  animation: fadein 0.5s;
+  font-size: 12px;
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
