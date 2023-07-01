@@ -6,3 +6,6 @@ The repository includes JavaScript code that randomly selects questions from a p
 Please note that instead of implementing a traditional CAPTCHA system, a simpler question-based verification approach was used to prevent automated spam. While this solution may not be as secure as advanced CAPTCHA systems, it serves as a basic measure to deter automated spam.
 
 It is important to consider the limitations of this solution and assess the level of security required for the specific application. In case of significant spam or automated attacks, it might be advisable to explore stronger CAPTCHA alternatives.
+
+# Credits
+The design and colors are based on this site: https://mail.novac.dev/
