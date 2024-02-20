@@ -1,4 +1,5 @@
-# Mail
+# Mail me
+
 This GitHub repository contains the source code for a web page called "Mail". The purpose of this page is to provide a contact form where users can send emails to the website owner while keeping the email address private. The page includes a verification question that users need to answer correctly before gaining access to the email address.
 
 The repository includes JavaScript code that randomly selects questions from a predefined list and verifies user-provided answers. It also incorporates functionality to change the question when the user switches tabs or reloads the page, ensuring variety and maintaining security.
@@ -7,5 +8,9 @@ Please note that instead of implementing a traditional CAPTCHA system, a simpler
 
 It is important to consider the limitations of this solution and assess the level of security required for the specific application. In case of significant spam or automated attacks, it might be advisable to explore stronger CAPTCHA alternatives.
 
-# Credits
+## Screenshot
+![image](https://github.com/qzxtu/Mail/assets/69091361/be30e03b-2445-4306-ad01-279bf89e0e7a)
+
+
+## Credits
 The design and colors are based on this site: https://mail.novac.dev/
