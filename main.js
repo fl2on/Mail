@@ -119,6 +119,11 @@ function generateMailtoLink(email) {
   return `mailto:${email}`;
 }
 
+window.onload = function() {
+  var year = new Date().getFullYear();
+  document.querySelector('footer p').textContent = '© ' + year + ' Qzxtu. All rights reserved.';
+}
+
 // Cambia la pregunta al cambiar de pestaña
 document.addEventListener("visibilitychange", function () {
   if (document.visibilityState === "visible") {
