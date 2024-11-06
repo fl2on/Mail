@@ -121,7 +121,7 @@ function generateMailtoLink(email) {
 
 window.onload = function() {
   var year = new Date().getFullYear();
-  document.querySelector('footer p').textContent = '© ' + year + ' Qzxtu. All rights reserved.';
+  document.querySelector('footer p').textContent = '© ' + year + ' fl2on. All rights reserved.';
 }
 
 // Cambia la pregunta al cambiar de pestaña
