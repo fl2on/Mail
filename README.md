@@ -5,8 +5,4 @@ This is a GitHub repository for a web page named “Mail”. It provides a priva
 It is important to consider the limitations of this solution and assess the level of security required for the specific application. In case of significant spam or automated attacks, it might be advisable to explore stronger CAPTCHA alternatives.
 
 ## Screenshot
-![image](https://github.com/qzxtu/Mail/assets/69091361/be30e03b-2445-4306-ad01-279bf89e0e7a)
-
-
-## Credits
-The design and colors are based on this site: https://mail.novac.dev/
+![image](https://github.com/user-attachments/assets/29c1521c-37e4-4fcd-9b69-3379e1c5772e)
