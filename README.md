@@ -6,3 +6,9 @@ It is important to consider the limitations of this solution and assess the leve
 
 ## Screenshot
 ![image](https://github.com/user-attachments/assets/29c1521c-37e4-4fcd-9b69-3379e1c5772e)
+
+![image](https://github.com/user-attachments/assets/b2fbe1a8-b55d-49f3-93d1-3e986c802bf6)
+
+![image](https://github.com/user-attachments/assets/a32416e1-89c9-4e8a-9610-2d06760fc8cd)
+
+![image](https://github.com/user-attachments/assets/9938af97-2052-47a0-9441-2842da3bc8b8)
