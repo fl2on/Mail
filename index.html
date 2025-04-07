@@ -1,48 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mail me</title>
-  <link rel="stylesheet" type="text/css" href="main.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✉️</text></svg>">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact form with enhanced security" />
+  <meta name="robots" content="noindex, nofollow" />
+  <!-- Protección contra clonación -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self';">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>Contact Me - Verification</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Anti-inspect script
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+      if (e.keyCode == 123) return false; // F12
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Ctrl+Shift+J
+      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
+    };
+
+    // Anti-iframe protection
+    if (window.top !== window.self) {
+      window.top.location.href = window.location.href;
+    }
+    
+    // Protección contra clonación
+    (function() {
+      // Verificar dominio
+      if (window.location.hostname !== window.location.hostname) {
+        document.body.innerHTML = "Access denied";
+      }
+      
+      // Verificar si está siendo ejecutado en same.dev o similares
+      if (window.location.hostname.includes('same.dev') || 
+          window.location.hostname.includes('replit') || 
+          window.location.hostname.includes('glitch.me') ||
+          window.location.hostname.includes('codepen.io')) {
+        document.body.innerHTML = "Access denied";
+      }
+      
+      // Generar una huella única para esta sesión
+      const sessionToken = Math.random().toString(36).substring(2, 15) + 
+                           Math.random().toString(36).substring(2, 15);
+      localStorage.setItem('_session_token', sessionToken);
+      
+      // Verificar periódicamente si la página ha sido clonada
+      setInterval(() => {
+        if (localStorage.getItem('_session_token') !== sessionToken) {
+          document.body.innerHTML = "Session invalidated";
+        }
+      }, 2000);
+    })();
+  </script>
 </head>
 
 <body>
-  <header>
-    <h1>Mail me</h1>
-  </header>
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="preloader-spinner"></div>
+  </div>
 
-  <main>
-    <section id="verification-section">
-      <p id="verificationText">Please answer the following question to verify that you're not a robot:</p>
-      <p id="question"></p>
-      <form id="form" autocomplete="off" action="#" method="POST">
-        <div class="form-row">
-          <input type="text" id="answer" placeholder="Your answer" required>
-          <input type="submit" value="Submit">
+  <!-- Copied message popup -->
+  <div class="copied-message" id="copied-message">Email copied to clipboard!</div>
+
+  <div class="container">
+    <h1>Contact Me</h1>
+    
+    <div class="card">
+      <p id="verification-text">Please complete the verification below to see contact information:</p>
+      
+      <!-- Multi-step verification system -->
+      <div class="progress-steps">
+        <div class="step active">
+          <span>1</span>
         </div>
-      </form>
-    </section>
-
-    <section id="email-section" style="display: none;">
-      <p>
-        <a id="mail-to">
-          <span id="email-address"></span>
-        </a>
-      </p>
-      <div class="form-row">
-        <button id="copy-to-clipboard" onclick="copyToClipboard()">Copy</button>
+        <div class="progress-line"></div>
+        <div class="step">
+          <span>2</span>
+        </div>
       </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2023 Qzxtu. All rights reserved.</p>
-  </footer>
+      
+      <!-- Step 1: Advanced Captcha -->
+      <div id="step-1" class="verification-step active">
+        <h2>Visual Verification</h2>
+        
+        <div class="captcha-container">
+          <div id="captcha-wrapper">
+            <canvas id="captcha-canvas" width="180" height="70"></canvas>
+          </div>
+          
+          <button type="button" class="refresh-button" id="refresh-captcha">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+            New Captcha
+          </button>
+          
+          <div class="input-group">
+            <input type="text" id="captcha-input" placeholder="Enter the characters you see" autocomplete="off">
+            <!-- Honeypot fields -->
+            <div class="honeypot-field">
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <input type="hidden" id="timestamp" name="timestamp" value="">
+            <input type="hidden" id="mouse-movements" name="mouse-movements" value="0">
+          </div>
+          
+          <div id="captcha-error" class="error-message hidden"></div>
+        </div>
+        
+        <button type="button" id="step-1-submit" class="primary-button">Verify & Continue</button>
+      </div>
+      
+      <!-- Step 2: Interactive Challenge -->
+      <div id="step-2" class="verification-step hidden">
+        <h2>Interactive Verification</h2>
+        
+        <div id="interactive-challenge">
+          <!-- El contenido se generará dinámicamente -->
+        </div>
+        
+        <div id="challenge-error" class="error-message hidden"></div>
+        
+        <button type="button" id="step-2-submit" class="primary-button">Verify & Continue</button>
+      </div>
+      
+      <!-- Email Section (Hidden initially) -->
+      <div id="email-section" class="verification-step hidden">
+        <div class="success-message">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <span>Verification completed</span>
+        </div>
+        
+        <h2>Contact Information</h2>
+        <p>You can reach me at:</p>
+        
+        <div id="email-display"></div>
+        
+        <button id="copy-to-clipboard" class="primary-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy to Clipboard
+        </button>
+      </div>
+    </div>
+    
+    <footer>
+      <p>© 2025 - All rights reserved. Fl2on.</p>
+    </footer>
+  </div>
 
   <script src="main.js"></script>
 </body>
-
 </html>
