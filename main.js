@@ -1124,8 +1124,8 @@ function detectSpamReload() {
         // Guardar las recargas actualizadas
         localStorage.setItem("_page_reloads", JSON.stringify(recentReloads))
 
-        // Si hay más de 20 recargas en la última hora, considerar spam
-        if (recentReloads.length > 20) {
+        // Si hay más de 15 recargas en la última hora, considerar spam
+        if (recentReloads.length > 15) {
             return true
         }
 
