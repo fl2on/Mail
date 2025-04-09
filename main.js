@@ -420,8 +420,8 @@ function generateCaptcha() {
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // Eliminados caracteres ambiguos
     captchaText = ""
 
-    // Generar un captcha de solo 4 caracteres para mayor legibilidad
-    for (let i = 0; i < 4; i++) {
+    // Generar un captcha de solo 3 caracteres para mayor legibilidad
+    for (let i = 0; i < 3; i++) {
         captchaText += chars.charAt(Math.floor(Math.random() * chars.length))
     }
 
