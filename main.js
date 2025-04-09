@@ -1,5 +1,4 @@
-;
-(() => {
+;(() => {
     const devToolsChecker = setInterval(() => {
         const widthThreshold = window.outerWidth - window.innerWidth > 160
         const heightThreshold = window.outerHeight - window.innerHeight > 160
