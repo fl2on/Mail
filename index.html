@@ -3,55 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Contact form with enhanced security" />
+  <meta name="description" content="Mail Me" />
   <meta name="robots" content="noindex, nofollow" />
-  <!-- Protección contra clonación -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self';">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <title>Contact Me - Verification</title>
   <link rel="stylesheet" href="style.css">
+  
   <script>
-    // Anti-inspect script
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.onkeydown = function(e) {
-      if (e.keyCode == 123) return false; // F12
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Ctrl+Shift+J
-      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
-    };
-
-    // Anti-iframe protection
-    if (window.top !== window.self) {
-      window.top.location.href = window.location.href;
-    }
+    // Prevenir copia de texto excepto cuando se permite explícitamente
+    document.addEventListener('copy', function(e) {
+      if (!window._allowCopy) {
+        e.preventDefault();
+        e.clipboardData.setData('text/plain', 'Copying is not allowed');
+      }
+    });
     
-    // Protección contra clonación
-    (function() {
-      // Verificar dominio
-      if (window.location.hostname !== window.location.hostname) {
-        document.body.innerHTML = "Access denied";
+    // Prevenir inspección con clic derecho
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Prevenir atajos de teclado comunes para herramientas de desarrollo
+    document.addEventListener('keydown', function(e) {
+      // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+      if (
+        e.keyCode === 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67))
+      ) {
+        e.preventDefault();
+        return false;
       }
-      
-      // Verificar si está siendo ejecutado en same.dev o similares
-      if (window.location.hostname.includes('same.dev') || 
-          window.location.hostname.includes('replit') || 
-          window.location.hostname.includes('glitch.me') ||
-          window.location.hostname.includes('codepen.io')) {
-        document.body.innerHTML = "Access denied";
-      }
-      
-      // Generar una huella única para esta sesión
-      const sessionToken = Math.random().toString(36).substring(2, 15) + 
-                           Math.random().toString(36).substring(2, 15);
-      localStorage.setItem('_session_token', sessionToken);
-      
-      // Verificar periódicamente si la página ha sido clonada
-      setInterval(() => {
-        if (localStorage.getItem('_session_token') !== sessionToken) {
-          document.body.innerHTML = "Session invalidated";
-        }
-      }, 2000);
-    })();
+    });
+    
+    // Inicializar la variable _allowCopy
+    window._allowCopy = false;
   </script>
 </head>
 
@@ -61,7 +50,7 @@
     <div class="preloader-spinner"></div>
   </div>
 
-  <!-- Copied message popup -->
+  <!-- Mensaje de copiado -->
   <div class="copied-message" id="copied-message">Email copied to clipboard!</div>
 
   <div class="container">
@@ -97,7 +86,7 @@
           
           <div class="input-group">
             <input type="text" id="captcha-input" placeholder="Enter the characters you see" autocomplete="off">
-            <!-- Honeypot fields -->
+            <!-- Honeypot field -->
             <div class="honeypot-field">
               <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
             </div>
@@ -124,7 +113,7 @@
         <button type="button" id="step-2-submit" class="primary-button">Verify & Continue</button>
       </div>
       
-      <!-- Email Section (Hidden initially) -->
+      <!-- Email Section -->
       <div id="email-section" class="verification-step hidden">
         <div class="success-message">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -147,7 +136,6 @@
       <p>© 2025 - All rights reserved. Fl2on.</p>
     </footer>
   </div>
-
   <script src="main.js"></script>
 </body>
 </html>
